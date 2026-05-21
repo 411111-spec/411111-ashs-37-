@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的 AI 單字卡</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f7f6;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 320px;
+        }
+        h1 { font-size: 3rem; margin: 0 0 10px 0; color: #333; }
+        p { font-size: 1.5rem; color: #666; min-height: 40px; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+            transition: 0.2s;
+        }
+        button:hover { background: #0056b3; }
+        .hint { background: #28a745; }
+        .hint:hover { background: #218838; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1 id="word">Apple</h1>
+        <p id="definition" style="visibility: hidden;">蘋果</p>
+        
+        <button class="hint" onclick="toggleHint()">看中文</button>
+        <button onclick="nextWord()">下一個</button>
+    </div>
+
+    <script>
+        // 這裡可以自由擴充你的單字庫
+        const vocabList = [
+            { word: "Apple", def: "蘋果" },
+            { word: "Banana", def: "香蕉" },
+            { word: "Cherry", def: "櫻桃" },
+            { word: "Awesome", def: "棒極了的" },
+            { word: "Database", def: "資料庫" }
+        ];
+
+        let currentIndex = 0;
+
+        function toggleHint() {
+            const defEl = document.getElementById("definition");
+            // 切換顯示與隱藏
+            if (defEl.style.visibility === "hidden") {
+                defEl.style.visibility = "visible";
+            } else {
+                defEl.style.visibility = "hidden";
+            }
+        }
+
+        function nextWord() {
+            // 隨機或按順序跳下一個單字，這裡採用按順序
+            currentIndex = (currentIndex + 1) % vocabList.length;
+            
+            document.getElementById("word").innerText = vocabList[currentIndex].word;
+            document.getElementById("definition").innerText = vocabList[currentIndex].def;
+            
+            // 跳單字時自動隱藏中文
+            document.getElementById("definition").style.visibility = "hidden";
+        }
+    </script>
+</body>
+</html>
